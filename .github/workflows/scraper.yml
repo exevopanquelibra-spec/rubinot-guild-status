@@ -2,7 +2,7 @@ name: Rubinot Scraper
 
 on:
   schedule:
-    - cron: '*/1 * * * *' # a cada 1 minuto
+    - cron: '*/1 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -10,11 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
 
@@ -27,19 +25,13 @@ jobs:
       - name: Run scraper
         run: npm start
 
-      # 🔴 ESTE PASSO É O MAIS IMPORTANTE
+      - name: List files (DEBUG)
+        if: always()
+        run: ls -lah
+
       - name: Upload debug HTML
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: debug-html
           path: debug.html
-
-      - name: Commit updated data
-        if: success()
-        run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git add data/status.json
-          git commit -m "update guild status" || echo "No changes"
-          git push
