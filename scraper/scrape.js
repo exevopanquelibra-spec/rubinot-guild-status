@@ -20,6 +20,14 @@ const URL = 'https://rubinot.com.br/?GuildName=Panq+Alliance&page=view&subtopic=
     timeout: 60000
   });
 
+  console.log('Salvando HTML para debug...');
+
+const html = await page.content();
+require('fs').writeFileSync('debug.html', html);
+
+console.log('HTML salvo (debug.html)');
+
+
   // Aguarda a tabela da guild aparecer
   await page.waitForSelector('table', { timeout: 60000 });
 
