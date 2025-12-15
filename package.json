@@ -1,0 +1,12 @@
+{
+  "name": "rubinot-guild-status",
+  "version": "1.0.0",
+  "description": "Scraper de status de guild Rubinot",
+  "main": "scraper/scrape.js",
+  "scripts": {
+    "start": "node scraper/scrape.js"
+  },
+  "dependencies": {
+    "playwright": "^1.42.0"
+  }
+}
